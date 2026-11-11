@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CareerPro | Job Portal & Complete Placement Preparation</title>
+  
+  <!-- Google Fonts: Plus Jakarta Sans & Fira Code -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eef2ff',
+              100: '#e0e7ff',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-100 min-h-screen flex flex-col transition-colors duration-200">
+
+  <!-- TOP NAVIGATION BAR -->
+  <header class="sticky top-0 z-40 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 transition-colors">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        
+        <!-- Logo -->
+        <a href="#jobs" class="flex items-center space-x-3 group">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-cyan-500 flex items-center justify-center text-white shadow-md shadow-indigo-500/20 group-hover:scale-105 transition-transform">
+            <i data-lucide="briefcase" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <span class="text-xl font-bold tracking-tight bg-gradient-to-r from-indigo-600 to-cyan-600 dark:from-indigo-400 dark:to-cyan-400 bg-clip-text text-transparent">CareerPro</span>
+            <span class="text-xs block font-medium text-slate-500 dark:text-slate-400 -mt-1">Jobs & Placement Hub</span>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation Tabs -->
+        <nav class="hidden md:flex items-center space-x-1 lg:space-x-2">
+          <a href="#jobs" id="nav-jobs" class="nav-link px-3 py-2 rounded-lg text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors flex items-center space-x-1.5">
+            <i data-lucide="compass" class="w-4 h-4"></i>
+            <span>Job Portal</span>
+          </a>
+          <a href="#prep" id="nav-prep" class="nav-link px-3 py-2 rounded-lg text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors flex items-center space-x-1.5">
+            <i data-lucide="book-open" class="w-4 h-4"></i>
+            <span>Preparation</span>
+          </a>
+          <a href="#companies" id="nav-companies" class="nav-link px-3 py-2 rounded-lg text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors flex items-center space-x-1.5">
+            <i data-lucide="building-2" class="w-4 h-4"></i>
+            <span>Companies</span>
+          </a>
+          <a href="#dsa-sheet" id="nav-dsa" class="nav-link px-3 py-2 rounded-lg text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors flex items-center space-x-1.5">
+            <i data-lucide="code" class="w-4 h-4"></i>
+            <span>DSA Sheet</span>
+            <span id="dsa-nav-badge" class="ml-1 px-1.5 py-0.5 text-xs rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-900/50 dark:text-emerald-300 font-semibold">0%</span>
+          </a>
+          <a href="#my-applications" id="nav-applied" class="nav-link px-3 py-2 rounded-lg text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors flex items-center space-x-1.5">
+            <i data-lucide="check-circle-2" class="w-4 h-4"></i>
+            <span>Applied (<span id="applied-count-nav">0</span>)</span>
+          </a>
+        </nav>
+
+        <!-- Right Action Controls -->
+        <div class="flex items-center space-x-3">
+          <!-- Dark Mode Toggle -->
+          <button id="theme-toggle" class="p-2 rounded-lg text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" title="Toggle Theme">
+            <i data-lucide="moon" id="moon-icon" class="w-5 h-5 hidden dark:block"></i>
+            <i data-lucide="sun" id="sun-icon" class="w-5 h-5 block dark:hidden"></i>
+          </button>
+
+          <!-- Post a Job Button -->
+          <button onclick="openPostJobModal()" class="hidden sm:inline-flex items-center space-x-1.5 px-3.5 py-2 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg shadow-sm shadow-indigo-500/20 transition-all hover:shadow-indigo-500/40">
+            <i data-lucide="plus-circle" class="w-4 h-4"></i>
+            <span>Post a Job</span>
+          </button>
+
+          <!-- Mobile Menu Button -->
+          <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">
+            <i data-lucide="menu" class="w-6 h-6"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-menu" class="hidden md:hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-4 pt-2 pb-4 space-y-1">
+      <a href="#jobs" class="mobile-nav-link block px-3 py-2 rounded-lg text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800">💼 Job Portal</a>
+      <a href="#prep" class="mobile-nav-link block px-3 py-2 rounded-lg text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800">📚 Preparation [Aptitude, DSA, Tech, HR]</a>
+      <a href="#companies" class="mobile-nav-link block px-3 py-2 rounded-lg text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800">🏢 Company Hiring Process</a>
+      <a href="#dsa-sheet" class="mobile-nav-link block px-3 py-2 rounded-lg text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800">🧠 Dedicated DSA Sheet</a>
+      <a href="#my-applications" class="mobile-nav-link block px-3 py-2 rounded-lg text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800">📝 Applied & Saved Jobs</a>
+      <button onclick="openPostJobModal()" class="w-full mt-2 flex items-center justify-center space-x-2 px-4 py-2.5 text-sm font-medium text-white bg-indigo-600 rounded-lg">
+        <i data-lucide="plus-circle" class="w-4 h-4"></i>
+        <span>Post a Job</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="gradient-hero-bg border-b border-slate-200/80 dark:border-slate-800/80 py-10 sm:py-14 transition-colors">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200 dark:border-indigo-800 text-indigo-700 dark:text-indigo-300 text-xs sm:text-sm font-medium mb-4">
+        <span class="flex h-2 w-2 rounded-full bg-indigo-600 animate-pulse"></span>
+        <span>All-In-One Placement Platform: Jobs • Aptitude • DSA • Technical • HR</span>
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white max-w-3xl mx-auto leading-tight">
+        Land Your Dream Tech Job with <span class="gradient-text">Complete Preparation</span>
+      </h1>
+      <p class="mt-4 text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
+        Explore curated job opportunities from top FAANG and MNCs, master aptitude with formulas & practice tests, review comprehensive CS fundamentals, and solve topic-wise DSA sheets.
+      </p>
+
+      <!-- Quick Stats Counter Strip -->
+      <div class="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-4xl mx-auto">
+        <div class="p-4 rounded-xl bg-white dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/60 shadow-sm">
+          <div class="text-2xl sm:text-3xl font-bold text-indigo-600 dark:text-indigo-400" id="stat-jobs-count">12+</div>
+          <div class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-medium">Curated Tech Jobs</div>
+        </div>
+        <div class="p-4 rounded-xl bg-white dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/60 shadow-sm">
+          <div class="text-2xl sm:text-3xl font-bold text-cyan-600 dark:text-cyan-400">4 Modules</div>
+          <div class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-medium">Aptitude, DSA, Tech & HR</div>
+        </div>
+        <div class="p-4 rounded-xl bg-white dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/60 shadow-sm">
+          <div class="text-2xl sm:text-3xl font-bold text-emerald-600 dark:text-emerald-400">8 Companies</div>
+          <div class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-medium">Hiring Patterns & Syllabus</div>
+        </div>
+        <div class="p-4 rounded-xl bg-white dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/60 shadow-sm">
+          <div class="text-2xl sm:text-3xl font-bold text-purple-600 dark:text-purple-400" id="stat-dsa-count">14 Problems</div>
+          <div class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-medium">Topic-Wise DSA Sheet</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN CONTENT CONTAINER -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+    <!-- ========================================== -->
+    <!-- VIEW 1: JOB PORTAL (#jobs) -->
+    <!-- ========================================== -->
+    <section id="view-jobs" class="view-panel space-y-6">
+      <!-- Search & Filters Bar -->
+      <div class="p-5 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/80 shadow-sm">
+        <div class="flex flex-col lg:flex-row gap-4">
+          <!-- Search input -->
+          <div class="relative flex-1">
+            <i data-lucide="search" class="w-5 h-5 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"></i>
+            <input type="text" id="job-search-input" placeholder="Search by job title, company (Google, Amazon), skill (React, Java)..." 
+              class="w-full pl-11 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm">
+          </div>
+          
+          <!-- Filter Selectors -->
+          <div class="flex flex-wrap items-center gap-3">
+            <!-- Category Filter -->
+            <select id="job-category-filter" class="px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+              <option value="all">All Categories</option>
+              <option value="Software Development">Software Development</option>
+              <option value="Frontend Development">Frontend</option>
+              <option value="Backend Development">Backend</option>
+              <option value="Full Stack">Full Stack</option>
+              <option value="Cloud & DevOps">Cloud & DevOps</option>
+              <option value="AI & Data Science">AI & Data Science</option>
+            </select>
+
+            <!-- Experience Filter -->
+            <select id="job-exp-filter" class="px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+              <option value="all">All Experience Levels</option>
+              <option value="Fresher">Fresher (0 - 1 yr)</option>
+              <option value="1 - 3 Years">1 - 3 Years</option>
+              <option value="2 - 4 Years">2+ Years</option>
+            </select>
+
+            <!-- Job Type Filter -->
+            <select id="job-type-filter" class="px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+              <option value="all">All Types</option>
+              <option value="Full-Time">Full-Time</option>
+              <option value="Remote">Remote</option>
+            </select>
+
+            <!-- Reset Filters -->
+            <button onclick="resetJobFilters()" class="px-3 py-2.5 rounded-xl text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700/60 border border-slate-200 dark:border-slate-700 transition-colors" title="Reset Filters">
+              <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Quick Filter Tags -->
+        <div class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-700/50 flex flex-wrap items-center gap-2 text-xs">
+          <span class="text-slate-400 font-medium">Quick Filters:</span>
+          <button onclick="setJobQuickFilter('FAANG')" class="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-700/70 hover:bg-indigo-100 dark:hover:bg-indigo-900/40 text-slate-600 dark:text-slate-300 transition-colors">🔥 FAANG / Tier 1</button>
+          <button onclick="setJobQuickFilter('Fresher')" class="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-700/70 hover:bg-indigo-100 dark:hover:bg-indigo-900/40 text-slate-600 dark:text-slate-300 transition-colors">🎓 2024 / 2025 Freshers</button>
+          <button onclick="setJobQuickFilter('Remote')" class="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-700/70 hover:bg-indigo-100 dark:hover:bg-indigo-900/40 text-slate-600 dark:text-slate-300 transition-colors">🌐 100% Remote</button>
+          <button onclick="setJobQuickFilter('Unicorn')" class="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-700/70 hover:bg-indigo-100 dark:hover:bg-indigo-900/40 text-slate-600 dark:text-slate-300 transition-colors">🦄 High-Growth Startups</button>
+        </div>
+      </div>
+
+      <!-- Job Results Header -->
+      <div class="flex items-center justify-between">
+        <h2 class="text-xl font-bold text-slate-900 dark:text-white flex items-center space-x-2">
+          <span>Available Tech Roles</span>
+          <span id="job-count-badge" class="text-xs px-2 py-0.5 rounded-full bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 font-semibold">0</span>
+        </h2>
+        <div class="text-sm text-slate-500 dark:text-slate-400">
+          Updated continuously from verified sources
+        </div>
+      </div>
+
+      <!-- Job Cards Grid -->
+      <div id="jobs-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <!-- Rendered dynamically via JS -->
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- VIEW 2: PREPARATION MODULE (#prep) -->
+    <!-- ========================================== -->
+    <section id="view-prep" class="view-panel hidden space-y-6">
+      <!-- Prep Module Sub-Header & Sub-Tabs -->
+      <div class="p-6 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/80 shadow-sm">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Comprehensive Placement Preparation</h2>
+            <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">
+              Select a pillar to access condensed notes, formula cheatsheets, and interactive practice problems.
+            </p>
+          </div>
+          <!-- Sub-Tab Pills -->
+          <div class="flex flex-wrap p-1.5 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 gap-1">
+            <button onclick="switchPrepTab('aptitude')" id="prep-tab-aptitude" class="prep-pill px-4 py-2 rounded-lg text-sm font-semibold transition-all bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm">
+              🧮 Aptitude
+            </button>
+            <button onclick="switchPrepTab('dsaCore')" id="prep-tab-dsaCore" class="prep-pill px-4 py-2 rounded-lg text-sm font-semibold transition-all text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white">
+              ⚡ DSA Foundation
+            </button>
+            <button onclick="switchPrepTab('technical')" id="prep-tab-technical" class="prep-pill px-4 py-2 rounded-lg text-sm font-semibold transition-all text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white">
+              💻 Technical CS
+            </button>
+            <button onclick="switchPrepTab('hr')" id="prep-tab-hr" class="prep-pill px-4 py-2 rounded-lg text-sm font-semibold transition-all text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white">
+              🤝 HR & Behavioral
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Prep Sub-Panels Container -->
+      <div id="prep-subpanels">
+        <!-- 1. Aptitude Panel -->
+        <div id="subpanel-aptitude" class="prep-panel space-y-6">
+          <!-- Aptitude Category Selector -->
+          <div class="flex flex-wrap gap-2 border-b border-slate-200 dark:border-slate-800 pb-3" id="aptitude-category-nav">
+            <!-- Rendered by JS -->
+          </div>
+          <!-- Aptitude Topics & Practice Content -->
+          <div id="aptitude-content" class="space-y-6">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- 2. DSA Core Foundation Panel -->
+        <div id="subpanel-dsaCore" class="prep-panel hidden space-y-6">
+          <div id="dsa-core-content" class="space-y-6">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- 3. Technical CS Panel (OS, DBMS, CN, OOP) -->
+        <div id="subpanel-technical" class="prep-panel hidden space-y-6">
+          <div class="flex flex-wrap gap-2 border-b border-slate-200 dark:border-slate-800 pb-3" id="tech-subject-nav">
+            <!-- Rendered by JS -->
+          </div>
+          <div id="technical-content" class="space-y-6">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- 4. HR & Behavioral Panel -->
+        <div id="subpanel-hr" class="prep-panel hidden space-y-6">
+          <div id="hr-content" class="space-y-6">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- VIEW 3: COMPANIES HIRING PROCESS (#companies) -->
+    <!-- ========================================== -->
+    <section id="view-companies" class="view-panel hidden space-y-6">
+      <div class="p-6 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/80 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Top Tech Companies Hiring Process</h2>
+          <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">
+            Exam patterns, section time limits, syllabus, eligibility cutoffs, CTC packages, and interview round insights.
+          </p>
+        </div>
+        <!-- Company Category Filter -->
+        <div class="flex items-center space-x-2">
+          <select id="company-filter" onchange="filterCompanies()" class="px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm font-medium text-slate-700 dark:text-slate-200">
+            <option value="all">All Companies</option>
+            <option value="Service Based MNC">Service Based MNCs (TCS, Infosys, Wipro...)</option>
+            <option value="Product / FAANG">Big Tech / FAANG (Google, Amazon, Microsoft...)</option>
+            <option value="Consulting & IT Services">Consulting Giants (Accenture...)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Company Cards Grid -->
+      <div id="companies-container" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Rendered by JS -->
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- VIEW 4: DEDICATED TOPIC-WISE DSA SHEET (#dsa-sheet) -->
+    <!-- ========================================== -->
+    <section id="view-dsa-sheet" class="view-panel hidden space-y-6">
+      <!-- DSA Progress Header Card -->
+      <div class="p-6 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/80 shadow-sm">
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+          <div>
+            <div class="inline-flex items-center space-x-2 px-2.5 py-1 rounded-md bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-300 text-xs font-semibold mb-2">
+              <i data-lucide="check-check" class="w-3.5 h-3.5"></i>
+              <span>Topic-Wise DSA Mastery Sheet</span>
+            </div>
+            <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Curated SDE Coding Interview Sheet</h2>
+            <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">
+              Hand-picked algorithmic problems frequently asked at Google, Amazon, Microsoft, and top tier product firms.
+            </p>
+          </div>
+
+          <!-- Progress Circle & Stats -->
+          <div class="flex items-center space-x-6 p-4 rounded-xl bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-700/60">
+            <div class="space-y-1">
+              <div class="text-xs font-medium text-slate-500 dark:text-slate-400">Total Solved</div>
+              <div class="text-2xl font-extrabold text-slate-900 dark:text-white flex items-baseline space-x-1">
+                <span id="dsa-solved-count">0</span>
+                <span class="text-sm font-normal text-slate-400">/ <span id="dsa-total-count">14</span></span>
+              </div>
+              <div class="text-xs font-semibold text-emerald-600 dark:text-emerald-400" id="dsa-percentage-text">0% Completed</div>
+            </div>
+            <div class="w-32 bg-slate-200 dark:bg-slate-700 rounded-full h-3 overflow-hidden">
+              <div id="dsa-progress-bar" class="bg-gradient-to-r from-emerald-500 to-teal-400 h-3 rounded-full transition-all duration-500" style="width: 0%"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Topic Pills Filter -->
+        <div class="mt-6 pt-4 border-t border-slate-100 dark:border-slate-700/60 flex items-center gap-2 overflow-x-auto pb-2" id="dsa-topics-nav">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+
+      <!-- Search & Difficulty Filter Bar -->
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="relative w-full sm:w-80">
+          <i data-lucide="search" class="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"></i>
+          <input type="text" id="dsa-search-input" oninput="filterDsaProblems()" placeholder="Search problem title or company..."
+            class="w-full pl-10 pr-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+        </div>
+
+        <div class="flex items-center space-x-3 w-full sm:w-auto justify-end">
+          <select id="dsa-difficulty-filter" onchange="filterDsaProblems()" class="px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm text-slate-700 dark:text-slate-200">
+            <option value="all">All Difficulties</option>
+            <option value="Easy">Easy</option>
+            <option value="Medium">Medium</option>
+            <option value="Hard">Hard</option>
+          </select>
+          <select id="dsa-status-filter" onchange="filterDsaProblems()" class="px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm text-slate-700 dark:text-slate-200">
+            <option value="all">All Status</option>
+            <option value="solved">Solved</option>
+            <option value="unsolved">Unsolved</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Problem Cards Table / List -->
+      <div id="dsa-problems-container" class="space-y-3">
+        <!-- Rendered by JS -->
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- VIEW 5: APPLIED & SAVED JOBS (#my-applications) -->
+    <!-- ========================================== -->
+    <section id="view-my-applications" class="view-panel hidden space-y-6">
+      <div class="p-6 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/80 shadow-sm">
+        <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Your Job Applications Tracker</h2>
+        <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">
+          Monitor your job applications status and review saved bookmarked positions.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Applied Jobs List (2 cols) -->
+        <div class="lg:col-span-2 space-y-4">
+          <h3 class="text-lg font-bold text-slate-900 dark:text-white flex items-center space-x-2">
+            <span>Submitted Applications</span>
+            <span id="tracker-count" class="text-xs px-2 py-0.5 rounded-full bg-indigo-100 text-indigo-700 dark:bg-indigo-900 dark:text-indigo-300 font-semibold">0</span>
+          </h3>
+          <div id="applied-jobs-list" class="space-y-3">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- Saved Bookmarks & Quick ATS Checklist (1 col) -->
+        <div class="space-y-6">
+          <div class="p-5 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/80 shadow-sm">
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-3 flex items-center space-x-2">
+              <i data-lucide="bookmark" class="w-4 h-4 text-indigo-500"></i>
+              <span>Saved Jobs</span>
+            </h3>
+            <div id="bookmarked-jobs-list" class="space-y-3">
+              <!-- Rendered by JS -->
+            </div>
+          </div>
+
+          <!-- ATS Resume Checklist Card -->
+          <div class="p-5 rounded-2xl bg-gradient-to-br from-indigo-500/10 to-cyan-500/10 border border-indigo-200 dark:border-indigo-800/60">
+            <h3 class="text-base font-bold text-indigo-900 dark:text-indigo-300 mb-2 flex items-center space-x-2">
+              <i data-lucide="file-check" class="w-4 h-4 text-indigo-600 dark:text-indigo-400"></i>
+              <span>ATS Resume Golden Rules</span>
+            </h3>
+            <ul class="text-xs text-slate-600 dark:text-slate-300 space-y-2 mt-3">
+              <li class="flex items-start space-x-2">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-500 shrink-0 mt-0.5"></i>
+                <span>Use single-column layout without tables, graphics, or text boxes.</span>
+              </li>
+              <li class="flex items-start space-x-2">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-500 shrink-0 mt-0.5"></i>
+                <span>Use action verbs + technical metrics (e.g. "Reduced API latency by 35%").</span>
+              </li>
+              <li class="flex items-start space-x-2">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-500 shrink-0 mt-0.5"></i>
+                <span>Include exact keywords from job description (e.g. Docker, Redis, Next.js).</span>
+              </li>
+              <li class="flex items-start space-x-2">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-500 shrink-0 mt-0.5"></i>
+                <span>Keep resume length strictly to 1 page for &lt; 3 years experience.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========================================== -->
+  <!-- MODALS -->
+  <!-- ========================================== -->
+
+  <!-- 1. Job Details Modal -->
+  <div id="job-details-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm overflow-y-auto">
+    <div class="bg-white dark:bg-slate-800 rounded-2xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl border border-slate-200 dark:border-slate-700 relative max-h-[90vh] overflow-y-auto">
+      <button onclick="closeModal('job-details-modal')" class="absolute top-5 right-5 p-2 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+      <div id="modal-job-content">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Job Application Modal -->
+  <div id="job-apply-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm overflow-y-auto">
+    <div class="bg-white dark:bg-slate-800 rounded-2xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-slate-200 dark:border-slate-700 relative">
+      <button onclick="closeModal('job-apply-modal')" class="absolute top-5 right-5 p-2 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+      
+      <div class="mb-5">
+        <span class="text-xs font-semibold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">Direct Application</span>
+        <h3 class="text-xl font-bold text-slate-900 dark:text-white mt-1" id="apply-modal-title">Apply for Role</h3>
+        <p class="text-xs text-slate-500 dark:text-slate-400" id="apply-modal-company">at Company</p>
+      </div>
+
+      <form id="job-apply-form" onsubmit="handleApplySubmit(event)" class="space-y-4">
+        <input type="hidden" id="apply-job-id">
+        <div>
+          <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Full Name *</label>
+          <input type="text" id="apply-name" required placeholder="Alex Morgan" 
+            class="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Email Address *</label>
+            <input type="email" id="apply-email" required placeholder="alex@example.com" 
+              class="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Phone Number *</label>
+            <input type="tel" id="apply-phone" required placeholder="+91 98765 43210" 
+              class="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Experience Level *</label>
+          <select id="apply-exp" class="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+            <option value="Fresher (2024/2025/2026 Batch)">Fresher (2024/2025/2026 Batch)</option>
+            <option value="0 - 1 Year">0 - 1 Year</option>
+            <option value="1 - 3 Years">1 - 3 Years</option>
+            <option value="3+ Years">3+ Years</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Resume Link (Google Drive / LinkedIn / Portfolio) *</label>
+          <input type="url" id="apply-resume" required placeholder="https://drive.google.com/file/d/..." 
+            class="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Why are you a great fit? (Brief note)</label>
+          <textarea id="apply-notes" rows="2" placeholder="Briefly highlight your relevant skills and projects..." 
+            class="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"></textarea>
+        </div>
+
+        <button type="submit" class="w-full py-2.5 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-xl shadow-md transition-all flex items-center justify-center space-x-2">
+          <i data-lucide="send" class="w-4 h-4"></i>
+          <span>Submit Application</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 3. Post a Job Modal (Employer Simulation) -->
+  <div id="post-job-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm overflow-y-auto">
+    <div class="bg-white dark:bg-slate-800 rounded-2xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-slate-200 dark:border-slate-700 relative max-h-[90vh] overflow-y-auto">
+      <button onclick="closeModal('post-job-modal')" class="absolute top-5 right-5 p-2 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div class="mb-5">
+        <span class="text-xs font-semibold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">Hiring Portal</span>
+        <h3 class="text-xl font-bold text-slate-900 dark:text-white mt-1">Post a New Job Opening</h3>
+        <p class="text-xs text-slate-500 dark:text-slate-400">Share your opening with thousands of job seekers.</p>
+      </div>
+
+      <form id="post-job-form" onsubmit="handlePostJobSubmit(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Job Title *</label>
+          <input type="text" id="post-title" required placeholder="e.g. Frontend Developer (React / Next.js)"
+            class="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Company Name *</label>
+            <input type="text" id="post-company" required placeholder="Acme Technologies"
+              class="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Category *</label>
+            <select id="post-category" class="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+              <option value="Software Development">Software Development</option>
+              <option value="Frontend Development">Frontend Development</option>
+              <option value="Backend Development">Backend Development</option>
+              <option value="Full Stack">Full Stack</option>
+              <option value="Cloud & DevOps">Cloud & DevOps</option>
+              <option value="AI & Data Science">AI & Data Science</option>
+            </select>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Location *</label>
+            <input type="text" id="post-location" required placeholder="Remote or Bengaluru"
+              class="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Salary / CTC *</label>
+            <input type="text" id="post-salary" required placeholder="₹12,00,000 - ₹20,00,000 / year"
+              class="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Key Skills (comma separated) *</label>
+          <input type="text" id="post-skills" required placeholder="React, Node.js, TypeScript, SQL"
+            class="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">Job Description *</label>
+          <textarea id="post-description" rows="3" required placeholder="Key responsibilities and qualifications..."
+            class="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"></textarea>
+        </div>
+
+        <button type="submit" class="w-full py-2.5 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-xl shadow-md transition-all flex items-center justify-center space-x-2">
+          <i data-lucide="check" class="w-4 h-4"></i>
+          <span>Publish Job Opening</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 4. DSA Code Solution & Notes Modal -->
+  <div id="dsa-solution-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm overflow-y-auto">
+    <div class="bg-white dark:bg-slate-800 rounded-2xl max-w-3xl w-full p-6 sm:p-8 shadow-2xl border border-slate-200 dark:border-slate-700 relative max-h-[92vh] overflow-y-auto">
+      <button onclick="closeModal('dsa-solution-modal')" class="absolute top-5 right-5 p-2 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div id="dsa-solution-header" class="mb-4">
+        <!-- Rendered by JS -->
+      </div>
+
+      <!-- Approach Explanation Box -->
+      <div id="dsa-approach-box" class="p-4 rounded-xl bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-700/80 mb-5">
+        <!-- Rendered by JS -->
+      </div>
+
+      <!-- Code Languages Selector & Copy Button -->
+      <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-700 pb-2 mb-3">
+        <div class="flex space-x-2" id="code-lang-tabs">
+          <button onclick="selectCodeLanguage('cpp')" id="lang-tab-cpp" class="px-3 py-1 text-xs font-semibold rounded-lg bg-indigo-600 text-white">C++</button>
+          <button onclick="selectCodeLanguage('java')" id="lang-tab-java" class="px-3 py-1 text-xs font-semibold rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200">Java</button>
+          <button onclick="selectCodeLanguage('python')" id="lang-tab-python" class="px-3 py-1 text-xs font-semibold rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200">Python</button>
+          <button onclick="selectCodeLanguage('javascript')" id="lang-tab-javascript" class="px-3 py-1 text-xs font-semibold rounded-lg bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200">JavaScript</button>
+        </div>
+        <button onclick="copyCurrentCode()" class="flex items-center space-x-1 px-2.5 py-1 text-xs font-medium rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700">
+          <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+          <span id="copy-btn-text">Copy Code</span>
+        </button>
+      </div>
+
+      <!-- Code display pre block -->
+      <div class="rounded-xl overflow-hidden bg-slate-900 border border-slate-800 text-slate-100 p-4">
+        <pre><code id="dsa-code-display" class="font-mono text-xs sm:text-sm"></code></pre>
+      </div>
+
+      <!-- Personal Notes Section -->
+      <div class="mt-6 pt-4 border-t border-slate-200 dark:border-slate-700">
+        <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">My Personal Notes & Key Takeaways</label>
+        <textarea id="dsa-personal-notes" rows="2" placeholder="Write your own edge-case notes, pitfalls, or insights..."
+          class="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"></textarea>
+        <button onclick="savePersonalNote()" class="mt-2 px-3 py-1.5 rounded-lg text-xs font-semibold bg-indigo-600 hover:bg-indigo-700 text-white transition-colors">
+          Save Note
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 flex items-center space-x-2 px-4 py-3 rounded-xl bg-slate-900 text-white shadow-xl border border-slate-700 text-sm">
+    <i data-lucide="check-circle" id="toast-icon" class="w-4 h-4 text-emerald-400"></i>
+    <span id="toast-message">Action successful</span>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="mt-auto border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-8 transition-colors">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 dark:text-slate-400">
+      <div class="flex items-center space-x-2">
+        <span class="font-bold text-slate-700 dark:text-slate-200">CareerPro Platform</span>
+        <span>•</span>
+        <span>Job Portal & Placement Prep</span>
+      </div>
+      <div>
+        Includes Aptitude, DSA Core, Technical CS, HR Behavioral, Company Hiring Patterns, and Topic-Wise Sheets.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/data/jobsData.js"></script>
+  <script src="js/data/prepData.js"></script>
+  <script src="js/data/companiesData.js"></script>
+  <script src="js/data/dsaSheetData.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
